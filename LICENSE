@@ -19,3 +19,117 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+The MIT License above applies to this repository's own work: the launcher
+scripts (launcher-template.sh, ruffle-interface.sh, launcher.py,
+install_pygame.sh), keymap templates, and documentation. It does NOT apply to
+the third-party components listed below, which are used under their own
+respective licenses.
+
+===============================================================================
+THIRD-PARTY COMPONENTS
+===============================================================================
+
+This repository includes/depends on the following third-party software. None
+of the third-party source code below has been modified by this project unless
+explicitly stated.
+
+-------------------------------------------------------------------------------
+1. `rufflesa` binary — arkos4clone
+-------------------------------------------------------------------------------
+What was used: the precompiled `rufflesa` binary for the R36S, taken as-is
+with no modifications or recompilation.
+
+Source: https://github.com/lcdyk0517/arkos4clone
+
+License: MIT
+
+MIT License
+
+Copyright (c) 2025 lcdyk
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+-------------------------------------------------------------------------------
+2. Ruffle (upstream engine)
+-------------------------------------------------------------------------------
+What was used: `rufflesa` is a build of the Ruffle Flash Player emulator (via
+arkos4clone, itself based on aweigit's fork — see section 3 below). No Ruffle
+source code is included or modified directly in this repository.
+
+Source: https://github.com/ruffle-rs/ruffle — https://ruffle.rs/
+
+License: dual-licensed, at the user's option, under either:
+  - Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+  - MIT License (http://opensource.org/licenses/MIT)
+
+MIT License
+
+Copyright (c) 2018-2022 Ruffle LLC <ruffle@ruffle.rs> and Ruffle contributors
+(https://github.com/ruffle-rs/ruffle/graphs/contributors)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+Ruffle also bundles many third-party Rust crates under their own compatible
+licenses (Apache-2.0, MIT, BSD, Zlib, ISC, MPL-2.0, etc.). The full list and
+each license's text is maintained upstream by the Ruffle project and is not
+reproduced here; see https://github.com/ruffle-rs/ruffle for the complete
+third-party notice.
+
+-------------------------------------------------------------------------------
+3. ruffle-miyooflip — documentation reference only
+-------------------------------------------------------------------------------
+What was used: only the project's documentation, consulted to understand how
+the Ruffle binary handles controller/keyboard input on handheld devices. No
+source code, scripts, or binaries from this project were copied, modified, or
+redistributed.
+
+Source: https://github.com/aweigit/ruffle-miyooflip
+
+License: please refer to the LICENSE file in the ruffle-miyooflip repository
+for the authoritative, up-to-date terms, since it is not reproduced here —
+this project did not use their code, only their public documentation as a
+reference.
+
+-------------------------------------------------------------------------------
+Summary
+-------------------------------------------------------------------------------
+Component               | Used as                          | License          | Modified?
+-------------------------------------------------------------------------------
+rufflesa binary         | Precompiled binary, unmodified   | MIT (arkos4clone)| No
+Ruffle engine            | Underlying engine in the binary  | Apache-2.0/MIT   | No
+ruffle-miyooflip          | Documentation reference only     | See upstream repo| N/A (no code used)
+Launcher scripts, keymaps,| Original work of this repository | MIT (see top of  | —
+README, etc.              |                                   | this file)       |

@@ -1,116 +1,36 @@
 #!/bin/bash
 
-# =========================================================
-# Game Configuration
-# Edit only these variables for each new Flash game.
-# =========================================================
-GAME_FOLDER="DadNMe"
+# ==========================================
+# 1. GAME CONFIGURATION
+# ==========================================
 SWF_FILE="dadnme.swf"
-CONTROL_PROFILE="controls.gptk"
-# =========================================================
+# ==========================================
 
-# Engine paths (do not modify)
 ENGINE_DIR="/roms/ports/ruffleEngine"
-GAME_DIR="$ENGINE_DIR/games/$GAME_FOLDER"
+GAMES_DIR="$ENGINE_DIR/games"
 
 cd "$ENGINE_DIR"
 
 # ---------------------------------------------------------
-# PortMaster
+# RESOLUTION HACK (Forces 640x480 output)
+# ---------------------------------------------------------
+sudo mount -o remount,rw /
+
+echo '#!/bin/bash' | sudo tee /usr/local/bin/console_detect > /dev/null
+echo 'echo "640x480"' | sudo tee -a /usr/local/bin/console_detect > /dev/null
+sudo chmod 777 /usr/local/bin/console_detect
 # ---------------------------------------------------------
 
-export controlfolder="/opt/system/Tools/PortMaster"
-source "$controlfolder/control.txt"
+# Clean SDL layout to pass all buttons directly to Ruffle and prevent force feedback crash
+sdl_controllerconfig="190000004b4800000011000000010000,GO-Super Gamepad,x:b2,a:b1,b:b0,y:b3,back:b12,start:b13,dpleft:b10,dpdown:b9,dpright:b11,dpup:b8,leftshoulder:b4,lefttrigger:b6,rightshoulder:b5,righttrigger:b7,leftstick:b14,rightstick:b15,leftx:a0,lefty:a1,rightx:a2,righty:a3,platform:Linux,"
 
-get_controls
-export SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig"
+# ==========================================
+# NATIVE EXECUTION
+# ==========================================
 
-# ---------------------------------------------------------
-# Mount Weston Runtime
-# ---------------------------------------------------------
+# Standard execution (Fast, no background logging)
+env SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig" ./rufflesa "$GAMES_DIR/$SWF_FILE" -Q low
 
-weston_dir=/tmp/weston
-weston_runtime="weston_pkg_0.2"
-
-$ESUDO mkdir -p "${weston_dir}"
-
-if [ ! -f "$controlfolder/libs/${weston_runtime}.squashfs" ]; then
-    $ESUDO $controlfolder/harbourmaster --quiet --no-check runtime_check "${weston_runtime}.squashfs"
-fi
-
-if [[ "$PM_CAN_MOUNT" != "N" ]]; then
-    $ESUDO umount "${weston_dir}" 2>/dev/null
-fi
-
-$ESUDO mount "$controlfolder/libs/${weston_runtime}.squashfs" "${weston_dir}"
-
-# ---------------------------------------------------------
-# Controller Profile
-# ---------------------------------------------------------
-
-sudo chmod 666 /dev/uinput
-sudo killall gptokeyb 2>/dev/null
-
-$GPTOKEYB "ruffle" -c "$GAME_DIR/$CONTROL_PROFILE" &
-sleep 1
-
-# ---------------------------------------------------------
-# Optional Debug Logging
-#
-# Uncomment the following lines if you need to troubleshoot
-# graphics or startup issues.
-# ---------------------------------------------------------
-
-# rm -f "$GAME_DIR/crash.log"
-#
-# echo "===== Environment =====" >> "$GAME_DIR/crash.log"
-# env | grep -E "WINIT|LIBGL|MESA|WGPU|DISPLAY|WAYLAND" >> "$GAME_DIR/crash.log"
-#
-# echo "===== Display =====" >> "$GAME_DIR/crash.log"
-# echo "DISPLAY=$DISPLAY" >> "$GAME_DIR/crash.log"
-# echo "WAYLAND_DISPLAY=$WAYLAND_DISPLAY" >> "$GAME_DIR/crash.log"
-# echo "WAYLAND_SOCKET=$WAYLAND_SOCKET" >> "$GAME_DIR/crash.log"
-# echo "XDG_SESSION_TYPE=$XDG_SESSION_TYPE" >> "$GAME_DIR/crash.log"
-# echo "XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR" >> "$GAME_DIR/crash.log"
-
-# ---------------------------------------------------------
-# Launch Ruffle
-# ---------------------------------------------------------
-
-$ESUDO env WRAPPED_LIBRARY_PATH="$PWD" \
-$weston_dir/westonwrap.sh drm gl kiosk crusty_x11egl \
-env \
-    -u WAYLAND_DISPLAY \
-    WINIT_UNIX_BACKEND=x11 \
-    WGPU_BACKEND=gl \
-    SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS=0 \
-    RUST_LOG=error \
-    ./ruffle \
-        --width 640 \
-        --height 480 \
-        --quality low \
-        --no-gui \
-        --power low \
-        "$GAME_DIR/$SWF_FILE"
-
-# If you want to save a crash log, append the following to the
-# end of the command above:
-#
-# >> "$GAME_DIR/crash.log" 2>&1
-#
-# Logging is disabled by default to avoid unnecessary writes
-# to the SD card while playing.
-
-# ---------------------------------------------------------
-# Cleanup
-# ---------------------------------------------------------
-
-sudo kill -9 $(pidof gptokeyb) 2>/dev/null
-
-$ESUDO $weston_dir/westonwrap.sh cleanup
-
-if [[ "$PM_CAN_MOUNT" != "N" ]]; then
-    $ESUDO umount "${weston_dir}"
-fi
-
-pm_finish
+# --- DEBUGGING MODE ---
+# Uncomment the line below (and comment the one above) to save crash logs to the games folder
+# env SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig" ./rufflesa "$GAMES_DIR/$SWF_FILE" -Q low > "$GAMES_DIR/crash_${SWF_FILE}.log" 2>&1
