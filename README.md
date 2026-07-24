@@ -28,7 +28,7 @@
 
 # Overview
 
-This project adapts the official **Ruffle ARM64 Linux build** so it can run on the **R36S** with **DarkOS**.
+This project brings **Ruffle ARM64 Linux build** so it can run on the **R36S** with **DarkOS**.
 
 The objective is simple:
 
@@ -51,8 +51,6 @@ Flash games (**.swf**) are **NOT included**.
 # Features
 
 ✔ Hardware accelerated rendering
-
-✔ Uses the official Ruffle ARM64 build
 
 ✔ Faster performance than previous versions
 
@@ -106,7 +104,7 @@ This is where the two options diverge — see below.
 
 There are **two ways** to launch your games. You don't need both — pick the one that fits you and, per the [cleanup guide](https://www.google.com/search?q=%23file-cleanup-guide), delete the files you don't need.
 
-## Option A — Menu Launcher
+## Option A — Menu Launcher Recommended For Many Games
 
 A graphical, gamepad-navigable menu (built with Pygame) that lists every `.swf` file inside `ruffleEngine/games/`, **allows you to map your controls directly from the interface**, and lets you pick one to launch. Best if you have several games and want a single entry point in EmulationStation.
 
