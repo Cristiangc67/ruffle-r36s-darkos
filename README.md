@@ -47,6 +47,14 @@ Flash games (**.swf**) are **NOT included**.
 > **Recent change:** the engine now runs noticeably faster and the graphical glitches previously caused by mouse input are gone. As a trade-off, some games may occasionally show minor in-game graphical bugs. See [Known Issues](#known-issues).
 
 ---
+<h2>📢 ArkOS Compatibility</h2>
+
+> [!IMPORTANT]
+> **Good news!** This project now works on **ArkOS** as well as **DarkOS**.
+>
+> **Currently, only Option B — Template Launcher has been tested on ArkOS.**
+> Option A (Menu Launcher) has not yet been verified.
+---
 
 # Features
 
