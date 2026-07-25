@@ -1,4 +1,4 @@
-<p align="center"> <img width="2752" height="1021" alt="Ruffle for R36S" src="https://github.com/user-attachments/assets/c34824ff-e633-4a0e-9aea-f8ab5638ebd2" /> </p> <h1 align="center">Ruffle for R36S (DarkOS)</h1> <p align="center"> Run Adobe Flash games on the R36S using the official Ruffle ARM64 build. </p> <p align="center"> ⚠️ Experimental • Community Project • Hardware Accelerated </p>
+<p align="center"> <img width="2752" height="1021" alt="Ruffle for R36S" src="https://github.com/user-attachments/assets/c34824ff-e633-4a0e-9aea-f8ab5638ebd2" /> </p> <h1 align="center">Ruffle for R36S (DarkOS/ArkOS)</h1> <p align="center"> Run Adobe Flash games on the R36S using the official Ruffle ARM64 build. </p> <p align="center"> ⚠️ Experimental • Community Project • Hardware Accelerated </p>
 
 
 > **Disclaimer**
